@@ -21,7 +21,7 @@ import (
 
 // Kommandolinjeparametre
 var (
-	chargePointID = flag.String("id", "CP001_SIMULATOR", "Charge Point ID")
+	chargePointID = flag.String("id", "CP001", "Charge Point ID")
 	serverURL     = flag.String("url", "ws://localhost:8887/ocpp", "Central System WebSocket URL")
 	model         = flag.String("model", "Simulator", "Charge Point model")
 	vendor        = flag.String("vendor", "GoSimulator", "Charge Point vendor")
