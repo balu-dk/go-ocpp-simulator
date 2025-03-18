@@ -22,7 +22,7 @@ import (
 // Kommandolinjeparametre
 var (
 	chargePointID = flag.String("id", "CP001", "Charge Point ID")
-	serverURL     = flag.String("url", "ws://localhost:8887/ocpp", "Central System WebSocket URL")
+	serverURL     = flag.String("url", ("ws://localhost:9000/"), "Central System WebSocket URL")
 	model         = flag.String("model", "Simulator", "Charge Point model")
 	vendor        = flag.String("vendor", "GoSimulator", "Charge Point vendor")
 	heartbeatInt  = flag.Int("heartbeat", 60, "Heartbeat interval i sekunder")
@@ -33,7 +33,7 @@ func main() {
 	flag.Parse()
 
 	log.Printf("Starter ladestander simulator med ID: %s", *chargePointID)
-	log.Printf("Forbinder til: %s", *serverURL)
+	log.Printf("Forbinder til: %s%s", *serverURL, *chargePointID)
 
 	// Opret OCPP charge point klient
 	chargePoint := ocpp16.NewChargePoint(*chargePointID, nil, nil)
@@ -58,7 +58,7 @@ func main() {
 	}()
 
 	// Forbind til central-system
-	err := chargePoint.Start(*serverURL)
+	err := chargePoint.Start(*serverURL + *chargePointID)
 	if err != nil {
 		log.Fatalf("Kunne ikke forbinde til central system: %v", err)
 	}
